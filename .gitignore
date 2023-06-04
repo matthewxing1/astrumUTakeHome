@@ -1,9 +1,7 @@
-<<<<<<< HEAD
-node_modules
-=======
 # compiled output
 /dist
 /node_modules
+package-lock.json
 
 # Logs
 logs
@@ -36,4 +34,3 @@ lerna-debug.log*
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
->>>>>>> 004f377 (Add project files to git)
