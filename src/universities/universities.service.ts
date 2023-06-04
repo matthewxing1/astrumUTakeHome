@@ -5,7 +5,7 @@ import { University } from './models/university';
 export class UniversitiesService {
   private universities: University[] = [];
 
-  public getAllUniversities(): University {
+  public getAllUniversities(): University[] {
 
   }
 
@@ -18,6 +18,6 @@ export class UniversitiesService {
   }
 
   public updateUniversity(): University {
-    
+
   }
 }
