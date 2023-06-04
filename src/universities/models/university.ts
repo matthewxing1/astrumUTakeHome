@@ -1,12 +1,34 @@
-export class University {
+import { Field, ObjectType } from '@nestjs/graphql';
+
+@ObjectType()
+export class State {
+  @Field()
   id: number;
+
+  @Field()
   name: string;
-  city: {
-    id: number;
-    name: string;
-    state: {
-      id: number;
-      name: string;
-    };
-  };
+}
+
+@ObjectType()
+export class City {
+  @Field()
+  id: number;
+
+  @Field()
+  name: string;
+
+  @Field(() => State)
+  state: State;
+}
+
+@ObjectType()
+export class University {
+  @Field()
+  id: number;
+
+  @Field()
+  name: string;
+
+  @Field(() => City)
+  city: City;
 }
