@@ -45,7 +45,7 @@ export class UniversitiesService {
       const data = await fs.promises.readFile('universities.json', 'utf8');
       const parsedData = JSON.parse(data);
       const newUniversity: University = {
-        id: parsedData.universities.length,
+        id: parsedData.universities.length + 1,
         name: createUniversity.name,
         city: {
           id: 1,
@@ -68,10 +68,7 @@ export class UniversitiesService {
     updateData: UpdateUniversityInput,
   ): Promise<University> {
     try {
-      const data = await fs.promises.readFile(
-        '../../universities.json',
-        'utf8',
-      );
+      const data = await fs.promises.readFile('universities.json', 'utf8');
       const parsedData = JSON.parse(data);
       for (const university of parsedData.universities) {
         if (university.id === updateData.id) {
