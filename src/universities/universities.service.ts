@@ -1,7 +1,7 @@
+import * as fs from 'fs';
 import { Injectable } from '@nestjs/common';
 import { University } from './models/university';
 import { CreateUniversityInput } from './dto/input/create-university.input';
-import * as fs from 'fs';
 import { GetUniversityArgs } from './dto/args/get-user.args';
 import { UpdateUniversityInput } from './dto/input/update-user.input';
 
