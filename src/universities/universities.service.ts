@@ -31,7 +31,7 @@ export class UniversitiesService {
         }
       }
       throw new Error(
-        `getUniversity error: No university found for id: ${universityId.universityId}`,
+        `getUniversity Error: No university found for id: ${universityId.universityId}`,
       );
     } catch (err) {
       return err;
@@ -83,7 +83,7 @@ export class UniversitiesService {
         }
       }
       throw new Error(
-        `updateUniversity error: No university found for id: ${updateData.id}`,
+        `updateUniversity Error: No university found for id: ${updateData.id}`,
       );
     } catch (err) {
       return err;
