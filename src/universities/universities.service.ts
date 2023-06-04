@@ -23,10 +23,7 @@ export class UniversitiesService {
     universityId: GetUniversityArgs,
   ): Promise<University> {
     try {
-      const data = await fs.promises.readFile(
-        '../../universities.json',
-        'utf8',
-      );
+      const data = await fs.promises.readFile('universities.json', 'utf8');
       const parsedData = JSON.parse(data);
       for (const university of parsedData.universities) {
         if (university.id === universityId.universityId) {
