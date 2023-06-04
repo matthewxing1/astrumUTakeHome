@@ -6,8 +6,8 @@ export class CreateUniversityInput {
   name: string;
 
   @Field()
-  cities: string[];
+  city: string;
 
   @Field()
-  states: string[];
+  state: string;
 }
