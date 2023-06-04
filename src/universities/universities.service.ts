@@ -11,10 +11,7 @@ export class UniversitiesService {
 
   public async getAllUniversities(): Promise<University[]> {
     try {
-      const data = await fs.promises.readFile(
-        '../../universities.json',
-        'utf8',
-      );
+      const data = await fs.promises.readFile('universities.json', 'utf8');
       const parsedData = JSON.parse(data);
       return parsedData.universities;
     } catch (err) {
@@ -48,10 +45,7 @@ export class UniversitiesService {
     createUniversity: CreateUniversityInput,
   ): Promise<University> {
     try {
-      const data = await fs.promises.readFile(
-        '../../universities.json',
-        'utf8',
-      );
+      const data = await fs.promises.readFile('universities.json', 'utf8');
       const parsedData = JSON.parse(data);
       const newUniversity: University = {
         id: parsedData.universities.length,
@@ -66,10 +60,7 @@ export class UniversitiesService {
         },
       };
       parsedData.universities.push(newUniversity);
-      fs.promises.writeFile(
-        '../../universities.json',
-        JSON.stringify(parsedData),
-      );
+      fs.promises.writeFile('universities.json', JSON.stringify(parsedData));
       return newUniversity;
     } catch (err) {
       return err;
@@ -91,7 +82,7 @@ export class UniversitiesService {
           university.city.name = updateData.city;
           university.city.state.name = updateData.name;
           fs.promises.writeFile(
-            '../../universities.json',
+            'universities.json',
             JSON.stringify(parsedData),
           );
           return university;
