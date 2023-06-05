@@ -10,4 +10,10 @@ export class CreateUniversityInput {
 
   @Field()
   state: string;
+
+  @Field()
+  user: string;
+
+  @Field()
+  password: string;
 }

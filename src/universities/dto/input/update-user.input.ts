@@ -13,4 +13,10 @@ export class UpdateUniversityInput {
 
   @Field()
   state: string;
+
+  @Field()
+  user: string;
+
+  @Field()
+  password: string;
 }
