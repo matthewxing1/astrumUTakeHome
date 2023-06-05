@@ -126,16 +126,18 @@ export class UniversitiesService {
     const data = await fs.promises.readFile('universities.json', 'utf8');
     const parsedData = JSON.parse(data);
     // iterate through universities
-    for (let i = 0; i < parsedData.universities; i += 1) {
+    console.log(parsedData);
+    for (let i = 0; i < parsedData.universities.length; i += 1) {
       // if university with matching id found
-      if (parsedData.universities[i] === deleteData.id) {
+      console.log(parsedData.universities[i].id);
+      if (parsedData.universities[i].id === deleteData.id) {
         // iterate through rest of universities after matching university
-        for (let j = i + 1; j < parsedData.universities; j += 1) {
+        for (let j = i + 1; j < parsedData.universities.length; j += 1) {
           // decrement each id by one
           parsedData.universities[j].id = parsedData.universities[j].id - 1;
         }
         // delete and save deleted university
-        const deletedUniversity = parsedData.splice(i, 1)[0];
+        const deletedUniversity = parsedData.universities.splice(i, 1)[0];
         // write to file
         fs.promises.writeFile('universities.json', JSON.stringify(parsedData));
         // return deleted university
@@ -152,7 +154,10 @@ export class UniversitiesService {
   public async authService(
     // inputs are either for creating or updating a university
     // output is true if authenticated, false otherwise
-    request: CreateUniversityInput | UpdateUniversityInput,
+    request:
+      | CreateUniversityInput
+      | UpdateUniversityInput
+      | DeleteUniversityInput,
   ): Promise<boolean> {
     // destructure user/password from request
     const { user, password } = request;
