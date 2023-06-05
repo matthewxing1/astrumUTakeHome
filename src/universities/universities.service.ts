@@ -4,6 +4,7 @@ import { University } from './models/university';
 import { CreateUniversityInput } from './dto/input/create-university.input';
 import { GetUniversityArgs } from './dto/args/get-user.args';
 import { UpdateUniversityInput } from './dto/input/update-user.input';
+import { DeleteUniversityArgs } from './dto/input/delete-university.service';
 
 @Injectable()
 export class UniversitiesService {
@@ -115,6 +116,36 @@ export class UniversitiesService {
       // return any error
       return err;
     }
+  }
+
+  // delete single university if authorized, will return deleted university
+  public async deleteUniversity(
+    deleteData: DeleteUniversityArgs,
+  ): Promise<University> {
+    // read data from file
+    const data = await fs.promises.readFile('universities.json', 'utf8');
+    const parsedData = JSON.parse(data);
+    // iterate through universities
+    for (let i = 0; i < parsedData.universities; i += 1) {
+      // if university with matching id found
+      if (parsedData.universities[i] === deleteData.id) {
+        // iterate through rest of universities after matching university
+        for (let j = i + 1; j < parsedData.universities; j += 1) {
+          // decrement each id by one
+          parsedData.universities[j].id = parsedData.universities[j].id - 1;
+        }
+        // delete and save deleted university
+        const deletedUniversity = parsedData.splice(i, 1)[0];
+        // write to file
+        fs.promises.writeFile('universities.json', JSON.stringify(parsedData));
+        // return deleted university
+        return deletedUniversity;
+      }
+    }
+    // if no id found, throw error
+    throw new Error(
+      `deleteUniversity Error: No university found for id: ${deleteData.id}`,
+    );
   }
 
   // service function to handle authentication
