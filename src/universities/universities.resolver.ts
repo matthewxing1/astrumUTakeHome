@@ -44,3 +44,4 @@ export class UniversitiesResolver {
       : Error('updateUniversity Error: invalid credentials');
   }
 }
+
