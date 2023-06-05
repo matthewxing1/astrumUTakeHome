@@ -95,7 +95,7 @@ export class UniversitiesService {
     // inputs are either for creating or updating a university
     // output is true if authenticated, false otherwise
     request: CreateUniversityInput | UpdateUniversityInput,
-  ): boolean {
+  ): Promise<boolean> {
     // destructure user/password from request
     const { user, password } = request;
     // MD5 hashing function
