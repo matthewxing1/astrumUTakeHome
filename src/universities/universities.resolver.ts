@@ -63,7 +63,7 @@ export class UniversitiesResolver {
   ): Promise<University | Error> {
     // if authorized, run the deleteUniversity service
     // if not authorized, return an Error
-    return (await this.universitiesService.deleteUniversity(deleteUniversity))
+    return (await this.universitiesService.authService(deleteUniversity))
       ? this.universitiesService.deleteUniversity(deleteUniversity)
       : Error('deleteUniversity Error: invalid credentials');
   }
