@@ -512,3 +512,4 @@ export class UniversitiesService {
     return parsedData.credentials[hash] === user;
   }
 }
+
