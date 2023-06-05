@@ -4,7 +4,7 @@ import { University } from './models/university';
 import { CreateUniversityInput } from './dto/input/create-university.input';
 import { GetUniversityArgs } from './dto/args/get-user.args';
 import { UpdateUniversityInput } from './dto/input/update-user.input';
-import { DeleteUniversityArgs } from './dto/input/delete-university.service';
+import { DeleteUniversityInput } from './dto/input/delete-university.service';
 
 @Injectable()
 export class UniversitiesService {
@@ -120,7 +120,7 @@ export class UniversitiesService {
 
   // delete single university if authorized, will return deleted university
   public async deleteUniversity(
-    deleteData: DeleteUniversityArgs,
+    deleteData: DeleteUniversityInput,
   ): Promise<University> {
     // read data from file
     const data = await fs.promises.readFile('universities.json', 'utf8');

@@ -4,6 +4,7 @@ import { UniversitiesService } from './universities.service';
 import { GetUniversityArgs } from './dto/args/get-user.args';
 import { CreateUniversityInput } from './dto/input/create-university.input';
 import { UpdateUniversityInput } from './dto/input/update-user.input';
+import { DeleteUniversityInput } from './dto/input/delete-university.service';
 
 @Resolver(() => University)
 export class UniversitiesResolver {
@@ -53,5 +54,17 @@ export class UniversitiesResolver {
     return (await this.universitiesService.authService(updateUniversity))
       ? this.universitiesService.updateUniversity(updateUniversity)
       : Error('updateUniversity Error: invalid credentials');
+  }
+
+  // handler for the mutation 'deleteUniversity' to delete a single university based on an id, if user/password is authenticated
+  @Mutation(() => University)
+  async deleteUniversity(
+    @Args('deleteUniversity') deleteUniversity: DeleteUniversityInput,
+  ): Promise<University | Error> {
+    // if authorized, run the deleteUniversity service
+    // if not authorized, return an Error
+    return (await this.universitiesService.deleteUniversity(deleteUniversity))
+      ? this.universitiesService.deleteUniversity(deleteUniversity)
+      : Error('deleteUniversity Error: invalid credentials');
   }
 }
