@@ -9,41 +9,55 @@ import { UpdateUniversityInput } from './dto/input/update-user.input';
 export class UniversitiesService {
   private universities: University[] = [];
 
+  // get all universities service
   public async getAllUniversities(): Promise<University[]> {
     try {
+      // read data from file
       const data = await fs.promises.readFile('universities.json', 'utf8');
       const parsedData = JSON.parse(data);
+      // return list of all universities
       return parsedData.universities;
     } catch (err) {
+      // return any errors
       return err;
     }
   }
 
+  // get single university service
   public async getUniversity(
     universityId: GetUniversityArgs,
   ): Promise<University> {
     try {
+      // read data from file
       const data = await fs.promises.readFile('universities.json', 'utf8');
       const parsedData = JSON.parse(data);
+      // iterate through since universities is an array (perhaps better way to add universities in the future to make time complexity O(1))
       for (const university of parsedData.universities) {
+        // if id matches
         if (university.id === universityId.universityId) {
+          // return university
           return university;
         }
       }
+      // throw error if iterated through data and no matching university found
       throw new Error(
         `getUniversity Error: No university found for id: ${universityId.universityId}`,
       );
     } catch (err) {
+      // return any errors
       return err;
     }
   }
 
+  // create single university if authorized
   public async createUniversity(
     createUniversity: CreateUniversityInput,
   ): Promise<University> {
     try {
+      // read data from file
       const data = await fs.promises.readFile('universities.json', 'utf8');
       const parsedData = JSON.parse(data);
+      // create a new university with provided data
       const newUniversity: University = {
         id: parsedData.universities.length + 1,
         name: createUniversity.name,
@@ -56,36 +70,49 @@ export class UniversitiesService {
           },
         },
       };
+      // push in university into data
       parsedData.universities.push(newUniversity);
+      // write to file/database, no need to await
       fs.promises.writeFile('universities.json', JSON.stringify(parsedData));
+      // return data for single new university
       return newUniversity;
     } catch (err) {
+      // return any errors
       return err;
     }
   }
 
+  // update single university if authorized
   public async updateUniversity(
     updateData: UpdateUniversityInput,
   ): Promise<University> {
     try {
+      // read data from file
       const data = await fs.promises.readFile('universities.json', 'utf8');
       const parsedData = JSON.parse(data);
+      // iterate through universities
       for (const university of parsedData.universities) {
+        // if university found matches id
         if (university.id === updateData.id) {
+          // update fields
           university.name = updateData.name;
           university.city.name = updateData.city;
           university.city.state.name = updateData.name;
+          // write to file
           fs.promises.writeFile(
             'universities.json',
             JSON.stringify(parsedData),
           );
+          // return updated university
           return university;
         }
       }
+      // throw error if university based on id not found
       throw new Error(
         `updateUniversity Error: No university found for id: ${updateData.id}`,
       );
     } catch (err) {
+      // return any error
       return err;
     }
   }
