@@ -29,14 +29,18 @@ export class UniversitiesResolver {
   @Mutation(() => University)
   createUniversity(
     @Args('createUniversity') createUniversity: CreateUniversityInput,
-  ): Promise<University> {
-    return this.universitiesService.createUniversity(createUniversity);
+  ): Promise<University> | Error {
+    return this.universitiesService.authService(createUniversity)
+      ? this.universitiesService.createUniversity(createUniversity)
+      : Error('createUniversity Error: invalid credentials');
   }
 
   @Mutation(() => University)
   updateUniversity(
     @Args('updateUniversity') updateUniversity: UpdateUniversityInput,
-  ): Promise<University> {
-    return this.universitiesService.updateUniversity(updateUniversity);
+  ): Promise<University> | Error {
+    return this.universitiesService.authService(updateUniversity)
+      ? this.universitiesService.updateUniversity(updateUniversity)
+      : Error('updateUniversity Error: invalid credentials');
   }
 }
