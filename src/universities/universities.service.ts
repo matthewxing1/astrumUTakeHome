@@ -103,7 +103,6 @@ export class UniversitiesService {
             'universities.json',
             JSON.stringify(parsedData),
           );
-          
           // return updated university
           return university;
         }
