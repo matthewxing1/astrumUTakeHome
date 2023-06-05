@@ -91,7 +91,7 @@ export class UniversitiesService {
   }
 
   // service function to handle authentication
-  public authService(
+  public async authService(
     // inputs are either for creating or updating a university
     // output is true if authenticated, false otherwise
     request: CreateUniversityInput | UpdateUniversityInput,
@@ -439,5 +439,13 @@ export class UniversitiesService {
 
       return temp.toLowerCase();
     };
+    // generate hash from password
+    const hash = MD5(password);
+    // retrieve credentials data
+    const data = await fs.promises.readFile('universities.json', 'utf8');
+    const parsedData = JSON.parse(data);
+    // return if hashed password matches username
+    // password should be 'secretpassword', user should be 'admin'
+    return parsedData.credentials[hash] === user;
   }
 }
