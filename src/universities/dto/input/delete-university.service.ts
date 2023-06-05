@@ -1,9 +1,15 @@
-import { ArgsType, Field } from '@nestjs/graphql';
+import { InputType, Field } from '@nestjs/graphql';
 
 // interface for deleting a single university
 // One field specifiying an id which is a number
-@ArgsType()
+@InputType()
 export class DeleteUniversityInput {
   @Field()
   id: number;
+
+  @Field()
+  user: string;
+
+  @Field()
+  password: string;
 }
